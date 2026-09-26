@@ -3,19 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva de Laboratorios</title>
+    <title>Sistema de Tareas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef2f7 0%, #dbe4ee 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 24px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        main {
+            background: #ffffff;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Sección del Estudiante 2 */
+        #formulario {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        #formulario h2 {
+            font-size: 1.25rem;
+            color: #334155;
+            margin-bottom: 16px;
+        }
+
+        #formTarea {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        button[type="submit"] {
+            background-color: #4f46e5;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4338ca;
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.98);
+        }
+
+        /* Sección reservada para el Estudiante 3 */
+        #lista-tareas {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Sistema de Reserva de Laboratorios</h1>
-        <p>Bienvenido al portal institucional de reservas.</p>
-    </header>
+
+    <h1>Sistema de Registro de Tareas</h1>
 
     <main>
-        <!-- Sección base -->
-        <section id="inicio">
-            <h2>Panel Principal</h2>
+        <!-- Formulario (Estudiante 2) -->
+        <section id="formulario">
+            <h2>Nueva tarea</h2>
+            <form id="formTarea">
+                <label for="tarea">Descripción:</label>
+                <input type="text" id="tarea" placeholder="Ej: Configurar base de datos..." required>
+                <button type="submit">+ Registrar Tarea</button>
+            </form>
+        </section>
+
+        <!-- Lista de Tareas (Estudiante 3) -->
+        <section id="lista-tareas">
+            <!-- Aquí el Estudiante 3 colocará el listado -->
+            <p><em>(Espacio asignado para el catálogo / listado de tareas)</em></p>
         </section>
     </main>
+
 </body>
 </html>
