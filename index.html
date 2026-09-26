@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Tareas</title>
+    <title>Sistema de Reserva de Laboratorios</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -16,151 +17,384 @@
         body {
             background: linear-gradient(135deg, #eef2f7 0%, #dbe4ee 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
+            color: #1e293b;
         }
 
-        h1 {
-            color: #1e293b;
-            margin-bottom: 24px;
-            font-size: 2rem;
+        header {
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 1rem;
         }
 
         main {
-            background: #ffffff;
             width: 100%;
-            max-width: 520px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
             gap: 24px;
         }
 
-        /* Sección del Estudiante 2 */
-        #formulario {
+        section {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        section h2 {
+            color: #1e3a8a;
+            margin-bottom: 18px;
+            font-size: 1.3rem;
+        }
+
+        /* Laboratorios disponibles */
+
+        .laboratorios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .laboratorio {
+            border: 1px solid #dbe2ea;
+            border-radius: 10px;
+            padding: 18px;
             background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 20px;
-            border-radius: 12px;
         }
 
-        #formulario h2 {
-            font-size: 1.25rem;
+        .laboratorio h3 {
             color: #334155;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
         }
 
-        #formTarea {
+        .laboratorio p {
+            color: #64748b;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .disponible {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .ocupado {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        /* Formulario */
+
+        #formulario-reserva {
+            display: grid;
+            gap: 14px;
+        }
+
+        .campo {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 6px;
         }
 
         label {
-            font-size: 0.9rem;
             font-weight: 600;
             color: #475569;
         }
 
-        input[type="text"] {
+        input,
+        select {
             width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid #cbd5e1;
+            padding: 11px 13px;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 0.95rem;
             outline: none;
-            transition: all 0.2s ease;
         }
 
-        input[type="text"]:focus {
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        input:focus,
+        select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
-        button[type="submit"] {
-            background-color: #4f46e5;
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 600;
-            padding: 12px;
+        button {
             border: none;
             border-radius: 8px;
+            padding: 12px 18px;
+            background-color: #2563eb;
+            color: white;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            transition: 0.2s;
         }
 
-        button[type="submit"]:hover {
-            background-color: #4338ca;
+        button:hover {
+            background-color: #1d4ed8;
         }
 
-        button[type="submit"]:active {
-            transform: scale(0.98);
-        }
+        /* Lista de reservas */
 
-        /* Sección reservada para el Estudiante 3 */
-        /* Sección del Estudiante 3 */
-        #lista-tareas {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        #lista-tareas h2 {
-            font-size: 1.25rem;
-            color: #334155;
-            margin-bottom: 16px;
-        }
-
-        #lista {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #lista li {
-            background-color: white;
-            border: 1px solid #e2e8f0;
+        .reserva {
+            border: 1px solid #dbe2ea;
+            border-left: 5px solid #2563eb;
             border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            background-color: #f8fafc;
+        }
+
+        .reserva strong {
+            color: #1e3a8a;
+        }
+
+        .reserva p {
+            margin-top: 5px;
             color: #475569;
+        }
+
+        .sin-reservas {
+            color: #64748b;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .mensaje {
+            display: none;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            background-color: #dcfce7;
+            color: #166534;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 18px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Sistema de Registro de Tareas</h1>
+    <header>
+        <h1>Sistema de Reserva de Laboratorios</h1>
+        <p>Consulta la disponibilidad y registra una solicitud de reserva.</p>
+    </header>
 
     <main>
-        <!-- Formulario (Estudiante 2) -->
-        <section id="formulario">
-            <h2>Nueva tarea</h2>
-            <form id="formTarea">
-                <label for="tarea">Descripción:</label>
-                <input type="text" id="tarea" placeholder="Ej: Configurar base de datos..." required>
-                <button type="submit">+ Registrar Tarea</button>
+
+        <!-- CONSULTA DE LABORATORIOS -->
+        <section>
+            <h2>Laboratorios disponibles</h2>
+
+            <div class="laboratorios">
+
+                <article class="laboratorio">
+                    <h3>Laboratorio de Cómputo 1</h3>
+                    <p><strong>Capacidad:</strong> 30 estudiantes</p>
+                    <p><strong>Equipamiento:</strong> 30 computadoras</p>
+                    <p class="disponible">● Disponible</p>
+                </article>
+
+                <article class="laboratorio">
+                    <h3>Laboratorio de Cómputo 2</h3>
+                    <p><strong>Capacidad:</strong> 25 estudiantes</p>
+                    <p><strong>Equipamiento:</strong> 25 computadoras</p>
+                    <p class="disponible">● Disponible</p>
+                </article>
+
+                <article class="laboratorio">
+                    <h3>Laboratorio de Redes</h3>
+                    <p><strong>Capacidad:</strong> 20 estudiantes</p>
+                    <p><strong>Equipamiento:</strong> Equipos de red</p>
+                    <p class="ocupado">● Ocupado</p>
+                </article>
+
+                <article class="laboratorio">
+                    <h3>Laboratorio de Sistemas</h3>
+                    <p><strong>Capacidad:</strong> 30 estudiantes</p>
+                    <p><strong>Equipamiento:</strong> Computadoras y proyectores</p>
+                    <p class="disponible">● Disponible</p>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- FORMULARIO DE RESERVA -->
+        <section>
+            <h2>Registrar solicitud de reserva</h2>
+
+            <form id="formulario-reserva">
+
+                <div class="campo">
+                    <label for="nombre">Nombre del estudiante:</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Ingrese su nombre completo"
+                        required>
+                </div>
+
+                <div class="campo">
+                    <label for="laboratorio">Laboratorio:</label>
+
+                    <select id="laboratorio" required>
+                        <option value="">Seleccione un laboratorio</option>
+                        <option value="Laboratorio de Cómputo 1">
+                            Laboratorio de Cómputo 1
+                        </option>
+                        <option value="Laboratorio de Cómputo 2">
+                            Laboratorio de Cómputo 2
+                        </option>
+                        <option value="Laboratorio de Redes">
+                            Laboratorio de Redes
+                        </option>
+                        <option value="Laboratorio de Sistemas">
+                            Laboratorio de Sistemas
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="fecha">Fecha de reserva:</label>
+                    <input
+                        type="date"
+                        id="fecha"
+                        required>
+                </div>
+
+                <div class="campo">
+                    <label for="hora">Hora:</label>
+
+                    <select id="hora" required>
+                        <option value="">Seleccione un horario</option>
+                        <option value="08:00 - 10:00">08:00 - 10:00</option>
+                        <option value="10:00 - 12:00">10:00 - 12:00</option>
+                        <option value="12:00 - 14:00">12:00 - 14:00</option>
+                        <option value="14:00 - 16:00">14:00 - 16:00</option>
+                        <option value="16:00 - 18:00">16:00 - 18:00</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="motivo">Motivo de la reserva:</label>
+                    <input
+                        type="text"
+                        id="motivo"
+                        placeholder="Ej: Clase de programación"
+                        required>
+                </div>
+
+                <button type="submit">
+                    Registrar solicitud
+                </button>
+
+                <div id="mensaje" class="mensaje">
+                    Reserva registrada correctamente.
+                </div>
+
             </form>
         </section>
 
-        <!-- Lista de Tareas (Estudiante 3) -->
-        <section id="lista-tareas">
-            <h2>Lista de tareas</h2>
+        <!-- LISTADO DE RESERVAS -->
+        <section>
+            <h2>Solicitudes registradas</h2>
 
-            <ul id="lista">
-                <li>Configurar la base de datos</li>
-                <li>Diseñar la interfaz del sistema</li>
-                <li>Realizar pruebas del sistema</li>
-            </ul>
+            <div id="lista-reservas">
+                <p class="sin-reservas">
+                    No existen solicitudes registradas.
+                </p>
+            </div>
         </section>
+
     </main>
 
-</body>
+    <footer>
+        <p>Sistema de Reserva de Laboratorios © 2026</p>
+    </footer>
 
+    <script>
+
+        const formulario = document.getElementById("formulario-reserva");
+        const listaReservas = document.getElementById("lista-reservas");
+        const mensaje = document.getElementById("mensaje");
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const laboratorio = document.getElementById("laboratorio").value;
+            const fecha = document.getElementById("fecha").value;
+            const hora = document.getElementById("hora").value;
+            const motivo = document.getElementById("motivo").value;
+
+            if (laboratorio === "Laboratorio de Redes") {
+                alert("El Laboratorio de Redes se encuentra ocupado.");
+                return;
+            }
+
+            const reserva = document.createElement("div");
+
+            reserva.classList.add("reserva");
+
+            reserva.innerHTML = `
+                <strong>${laboratorio}</strong>
+                <p><strong>Estudiante:</strong> ${nombre}</p>
+                <p><strong>Fecha:</strong> ${fecha}</p>
+                <p><strong>Horario:</strong> ${hora}</p>
+                <p><strong>Motivo:</strong> ${motivo}</p>
+            `;
+
+            const mensajeSinReservas =
+                listaReservas.querySelector(".sin-reservas");
+
+            if (mensajeSinReservas) {
+                mensajeSinReservas.remove();
+            }
+
+            listaReservas.appendChild(reserva);
+
+            mensaje.style.display = "block";
+
+            formulario.reset();
+
+            setTimeout(function() {
+                mensaje.style.display = "none";
+            }, 3000);
+
+        });
+
+    </script>
+
+</body>
 </html>
+```
