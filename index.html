@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,16 +103,37 @@
         }
 
         /* Sección reservada para el Estudiante 3 */
+        /* Sección del Estudiante 3 */
         #lista-tareas {
-            border: 2px dashed #cbd5e1;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
             padding: 20px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
+        }
+
+        #lista-tareas h2 {
+            font-size: 1.25rem;
+            color: #334155;
+            margin-bottom: 16px;
+        }
+
+        #lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #lista li {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            color: #475569;
         }
     </style>
 </head>
+
 <body>
 
     <h1>Sistema de Registro de Tareas</h1>
@@ -129,10 +151,16 @@
 
         <!-- Lista de Tareas (Estudiante 3) -->
         <section id="lista-tareas">
-            <!-- Aquí el Estudiante 3 colocará el listado -->
-            <p><em>(Espacio asignado para el catálogo / listado de tareas)</em></p>
+            <h2>Lista de tareas</h2>
+
+            <ul id="lista">
+                <li>Configurar la base de datos</li>
+                <li>Diseñar la interfaz del sistema</li>
+                <li>Realizar pruebas del sistema</li>
+            </ul>
         </section>
     </main>
 
 </body>
+
 </html>
